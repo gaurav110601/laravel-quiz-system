@@ -12,7 +12,7 @@
                     <h2 class="text-2xl text-center text-gray-800 mb-6">Add Quiz</h2> 
                     <form action="/add-quiz" method="get" class="space-y-4">
                         <div>
-                            <input type="text" placeholder="Enter quiz name" name="quiz"
+                            <input type="text" placeholder="Enter quiz name" name="quiz" required 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none"
                             >
                         </div>
@@ -28,41 +28,61 @@
                 @else
                     <span class="text-green-500 font-bold">Quiz : {{session('quizDetails')->name}}</span>
                     <h2 class="text-2xl text-center text-gray-800 mb-6">Add MCQs</h2> 
-                    <form action="" method="get" class="space-y-4">
+                    <form action="add-mcq" method="post" class="space-y-4">
+                        @csrf
                         <div>
-                            <textarea type="text" placeholder="Enter your question name" name="quiz"
+                            <textarea type="text" placeholder="Enter your question name" name="question"
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none"
                             ></textarea>
+                            @error('question')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter first option" name="quiz" 
+                            <input type="text" placeholder="Enter first option" name="a" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                            @error('a')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter second option" name="quiz" 
+                            <input type="text" placeholder="Enter second option" name="b" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                            @error('b')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter third option" name="quiz" 
+                            <input type="text" placeholder="Enter third option" name="c" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                            @error('c')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
                         <div>
-                            <input type="text" placeholder="Enter fourth option" name="quiz" 
+                            <input type="text" placeholder="Enter fourth option" name="d" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
+                            @error('d')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <div>
-                            <select name="right answer" 
+                            <select name="correct_ans" 
                             class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none">
                                 <option value="">Select Right Answer</option>
-                                <option value="">A</option>
-                                <option value="">B</option>
-                                <option value="">C</option>
-                                <option value="">D</option>
+                                <option value="a">A</option>
+                                <option value="b">B</option>
+                                <option value="c">C</option>
+                                <option value="d">D</option>
                             </select>
+                            @error('correct_ans')
+                                <div class="text-red-500">{{$message}}</div>
+                            @enderror
                         </div>
-                        <button type="submit" class="w-full bg-blue-500 rounded-xl px-4 py-2 text-white hover:bg-blue-600">Add More</button>
-                        <button type="submit" class="w-full bg-green-500 rounded-xl px-4 py-2 text-white hover:bg-green-600">Submit</button>
+                        <button type="submit" name="submit" value="add-more" class="w-full bg-blue-500 rounded-xl px-4 py-2 text-white hover:bg-blue-600">Add More</button>
+                        <button type="submit" name="submit" value="done" class="w-full bg-green-500 rounded-xl px-4 py-2 text-white hover:bg-green-600">Add & Submit</button>
+                        <a href="/end-quiz" class="w-full bg-red-500 block text-center rounded-xl px-4 py-2 text-white hover:bg-green-600">Finish Quiz</a>
                     </form>
                 @endif
             </div>
